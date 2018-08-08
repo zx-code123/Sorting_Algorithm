@@ -1,7 +1,9 @@
-# 七大排序算法的实现 (C++)#
+# 七大排序算法的实现 (C++,python3)#
 ## 1.冒泡排序 ##
 
-[**冒泡排序代码**](CPP/bubblesort.cpp)
+[**冒泡排序代码C++**](CPP/bubblesort.cpp)
+
+[**冒泡排序代码python3**](python3/bubbleSort.py)
 
 原理：
 
@@ -42,9 +44,23 @@
 		    }
 		}
 
+* python3代码实现
 
+	    def bubbleSortPlus(alist):
+	    n = len(alist)
+	    exchange = False
+	    for i in range(n-1,0,-1):
+	        for j in range(i):
+	            if(alist[j]>alist[j+1]):
+	                alist[j],alist[j+1] = alist[j+1],alist[j]
+	        # 如果发现整个排序过程中没有交换，提前结束
+	        if not exchange:
+	            break
+	    return alist
 ## 2.选择排序 ##
-[**选择排序代码**](CPP/selectionsort.cpp)
+[**选择排序代码C++**](CPP/selectionsort.cpp)
+
+[**选择排序代码python3**](python3/selectionSort.py)
 
 原理：
 
@@ -86,9 +102,22 @@
 		    }
 		}
 
+* python3代码实现
 
+	    def selectionSort(alist):
+	    n = len(alist)
+	
+	    for i in range(n-1):
+	        minIndex = i
+	        for j in range(i+1,n):
+	            if(alist[j]<alist[minIndex]):
+	                minIndex = j
+	        alist[i],alist[minIndex] = alist[minIndex],alist[i]
+	    return alist
 ## 3.插入排序 ##
-[**插入排序代码**](CPP/insertsort.cpp)
+[**插入排序代码C++**](CPP/insertsort.cpp)
+
+[**插入排序代码python3**](python3/insertSort.py)
 
 原理：
 
@@ -135,8 +164,26 @@
 		    }
 		}
 
+* python3代码实现
+
+	    def insertionSort(alist):
+	    n = len(alist)
+	    for i in range(1,n):
+	        temp = alist[i]
+	        for j in range(i,-1,-1):
+	             # j为当前位置，试探j-1位置
+	            if(temp < alist[j-1]):
+	                alist[j] = alist[j-1]
+	            else:
+	                # 位置确定为j
+	                break
+	        alist[j] = temp
+	    return alist
+
 ## 4.归并排序 ##
-[**归并排序代码**](CPP/mergesort.cpp)
+[**归并排序代码C++**](CPP/mergesort.cpp)
+
+[**归并排序代码python3**](python3/mergeSort.py)
 
 原理：
 
@@ -201,8 +248,41 @@
 		    }
 		}
 
+* python3代码实现
+
+		def merge(left,right):
+		    temp = []
+		    i = j = 0
+		    while(i<len(left) and j<len(right)):
+		        if(left[i]<right[j]):
+		            temp.append(left[i])
+		            i = i + 1
+		        else:
+		            temp.append(right[j])
+		            j = j+1
+		    if(i == len(left)):
+		        for k in right[j:]:
+		            temp.append(k)
+		    else:
+		        for k in left[i:]:
+		            temp.append(k)
+		    return temp 
+		
+		def mergeSort(alist):
+		    n = len(alist)
+		    mid = n//2
+		    if(n <= 1):
+		        return alist
+		    
+		    left = mergeSort(alist[:mid])
+		    right = mergeSort(alist[mid:])
+		    
+		    return merge(left,right)
+
 ## 5.希尔排序 ##
-[**希尔排序代码**](CPP/shellsort.cpp)
+[**希尔排序代码C++**](CPP/shellsort.cpp)
+
+[**希尔排序代码python3**](python3/shellSort.py)
 
 原理：
 
@@ -238,8 +318,30 @@
 		    }
 		}
 
+
+* python3代码实现
+		
+		def shellSort(alist):
+		    length = len(alist)
+		    n = length//2
+		    while(n>0):
+		        for i in range(n,length):
+		            temp = alist[i]
+		            for j in range(i,-1,-n):
+		                if(j<0):
+		                    break
+		                if(temp < alist[j-n]):
+		                    alist[j] = alist[j-n]               
+		                else:
+		                    break
+		            alist[j] = temp
+		        n = n//2
+		    return alist
+
 ## 6.堆排序 ##
-[**堆排序代码**](CPP/heapsort.cpp)
+[**堆排序代码C++**](CPP/heapsort.cpp)
+
+[**堆排序代码python3**](python3/heapSort.py)
 
 原理：
 
@@ -346,8 +448,33 @@ ok，了解了这些定义。接下来，我们来看看堆排序的基本思想
 		    }
 		}
 
+* python3代码实现
+
+		def heap(alist,length,index):
+		    left = 2*index + 1
+		    right = 2*index + 2
+		    maxId = index
+		    if(left < length and alist[left] > alist[maxId]):
+		        maxId = left
+		    if(right < length and alist[right] > alist[maxId]):
+		        maxId = right
+		    if(maxId != index):
+		        alist[maxId],alist[index] = alist[index],alist[maxId]
+		        heap(alist,length,maxId)
+		
+		def heapSort(alist,length):
+		    for i in range(length//2-1,-1,-1):
+		        heap(alist,length,i)
+		    for i in range(length-1,-1,-1):
+		        alist[0],alist[i] = alist[i],alist[0]
+		        heap(alist,i,0)
+		    return alist
+
+
 ## 7.快速排序 ##
-[**快速排序代码**](CPP/quicksort.cpp)
+[**快速排序代码C++**](CPP/quicksort.cpp)
+
+[**快速排序代码python3**](python3/quickSort.py)
 
 原理：
 
@@ -419,3 +546,33 @@ ok，了解了这些定义。接下来，我们来看看堆排序的基本思想
 		    }
 		}
 
+* python3代码实现
+
+		def quickSort(alist,left,right):
+		    dealPivot(alist,left,right)
+		    i = left
+		    j = right
+		    v = alist[right-1]
+		    while(i <= j):
+		        while(alist[i] < v):
+		            i = i+1
+		        while(alist[j]>v):
+		            j = j - 1
+		        alist[i],alist[j] = alist[j],alist[i]
+		        i = i +1
+		        j = j-1
+		    if(left < j):
+		        quickSort(alist,left,j);
+		    if(right>i):
+		        quickSort(alist,i,right)
+		    return alist
+		
+		def dealPivot(alist,left,right):
+		    mid = (left+right)//2
+		    if(alist[left]>alist[mid]):
+		        alist[left],alist[mid] = alist[mid],alist[left]
+		    if(alist[left]>alist[right]):
+		        alist[left],alist[right] = alist[right],alist[left]
+		    if(alist[mid]>alist[right]):
+		        alist[mid],alist[right] = alist[mid],alist[right]
+		    alist[mid],alist[right-1] = alist[mid],alist[right-1]
