@@ -40,7 +40,7 @@
 		{
 		    for(int i = n;i>=1;i--)
 		    {
-		        bubbleSort(arr,n);
+		        bubbleSort(arr,i);
 		    }
 		}
 
@@ -492,7 +492,7 @@ ok，了解了这些定义。接下来，我们来看看堆排序的基本思想
 
 * C++代码实现
 * 
-		void algorithm_me::dealPivot(int arr[], int left, int right)
+		void dealPivot(int arr[], int left, int right)
 		{
 		        int mid = (left + right) / 2;
 		        if (arr[left] > arr[mid])
@@ -510,7 +510,7 @@ ok，了解了这些定义。接下来，我们来看看堆排序的基本思想
 		        swap(arr[right - 1], arr[mid]);
 		
 		}
-		void algorithm_me::quicksort(int arr[],int L,int R)
+		void quicksort(int arr[],int L,int R)
 		{
 		    dealPivot(arr,L,R);
 		    int i = L;
